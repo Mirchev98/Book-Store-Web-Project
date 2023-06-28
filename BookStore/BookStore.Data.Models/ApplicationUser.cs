@@ -12,18 +12,15 @@ namespace BookStore.Data.Models
         public ApplicationUser()
         {
             Id = Guid.NewGuid();
-            Books = new List<Book>();
             Reviews = new List<Review>();
-            FavouriteAuthors = new List<Author>();
-            FavouriteBooks = new List<Book>();
         }
 
-        public ICollection<Book> Books { get; set; }
+        public ICollection<UserBookBought> BoughtBooks { get; set; } = new HashSet<UserBookBought>();
 
         public ICollection<Review> Reviews { get; set; }
 
-        public ICollection<Author> FavouriteAuthors { get; set; }
+        public ICollection<Author> FavouriteAuthors { get; set; } = new HashSet<Author>();
 
-        public ICollection<Book> FavouriteBooks { get; set; }
+        public ICollection<FavoriteUserBook> FavouriteBooks { get; set; } = new HashSet<FavoriteUserBook>();
     }
 }

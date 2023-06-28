@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookStore.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,11 +25,12 @@ namespace BookStore.Data.Models
 
         [Required]
         [ForeignKey(nameof(Reviewer))]
-        public string ReviewerId { get; set; } = null!;
+        public Guid ReviewerId { get; set; }
 
         public ApplicationUser Reviewer { get; set; }
 
         [Required]
+        [MaxLength(DataConstants.ReviewMaxLen)]
         public string ReviewText { get; set; } = null!;
 
         [Required]

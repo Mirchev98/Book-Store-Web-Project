@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookStore.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,21 +15,22 @@ namespace BookStore.Data.Models
         public Book()
         {
             Reviews = new List<Review>();
-            PhotosUrls = new List<string>();
         }
 
         [Key]
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(DataConstants.BookTitleMaxLen)]
         public string Title { get; set; } = null!;
 
         [Required]
+        [MaxLength(DataConstants.BookDesMaxLen)]
         public string Description { get; set; } = null!;
 
         [Required]
         [ForeignKey(nameof(Category))]
-        public string CategoryId { get; set; } = null!;
+        public Guid CategoryId { get; set; }
 
         [Required]
         public Category Category { get; set; } = null!;
@@ -41,6 +43,12 @@ namespace BookStore.Data.Models
 
         public ICollection<Review> Reviews { get; set; }
 
-        public ICollection<string> PhotosUrls { get; set; }
+        [Required]
+        [MaxLength(DataConstants.PhotoUrlMaxLen)]
+        public string PhotoUrl { get; set; }
+
+        public ICollection<FavoriteUserBook> FavoriteUsersBook { get; set; } = new HashSet<FavoriteUserBook>();
+
+        public ICollection<UserBookBought> UserBoughtBooks { get; set; } = new HashSet<UserBookBought>();
     }
 }
