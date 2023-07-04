@@ -24,7 +24,7 @@ namespace BookStore.Services.Data
             return await db.Categories
                 .Select(c => new CategoryViewModel
                 {
-                    Id = c.Id.ToString(),
+                    CategoryId = c.Id.ToString(),
                     Name = c.Name
                 }).ToListAsync();
         }

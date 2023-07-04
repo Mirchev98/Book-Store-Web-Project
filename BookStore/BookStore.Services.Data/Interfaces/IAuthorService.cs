@@ -10,5 +10,7 @@ namespace BookStore.Services.Data.Interfaces
     public interface IAuthorService
     {
         public Task<Author> GetAuthorByNameAsync(string name);
+
+        public Task<bool> ValidateAuthor(string name);
     }
 }

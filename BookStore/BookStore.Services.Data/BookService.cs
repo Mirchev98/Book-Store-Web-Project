@@ -14,7 +14,7 @@ namespace BookStore.Services.Data
     public class BookService : IBookService
     {
         private BookStoreDbContext db;
-        private AuthorService authorService;
+        private IAuthorService authorService;
 
         public BookService(BookStoreDbContext db, AuthorService authorService)
         {
@@ -32,7 +32,8 @@ namespace BookStore.Services.Data
                 Title = model.Title,
                 Description = model.Description,
                 AuthorId = author.Id,
-                CategoryId = Guid.Parse(model.CategoryId)
+                CategoryId = Guid.Parse(model.CategoryId),
+                Price = model.Price
             };
 
             await db.Books.AddAsync(book);

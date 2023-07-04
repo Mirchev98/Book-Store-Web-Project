@@ -25,6 +25,9 @@ namespace BookStore.Web.ViewModels.Book
         [StringLength(DataConstants.AuthorMaxNameLen, MinimumLength = DataConstants.AuthorMinNameLen)]
         public string Author { get; set; } = null!;
 
+        [Required]
+        public decimal Price { get; set; }
+
         [Display(Name = "Photo Link")]
         [Required]
         public string PhotoUrl { get; set; } = null!;

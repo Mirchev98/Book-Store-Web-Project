@@ -47,6 +47,9 @@ namespace BookStore.Data.Models
         [MaxLength(DataConstants.PhotoUrlMaxLen)]
         public string PhotoUrl { get; set; }
 
+        [Required]
+        public decimal Price { get; set; }
+
         public ICollection<FavoriteUserBook> FavoriteUsersBook { get; set; } = new HashSet<FavoriteUserBook>();
 
         public ICollection<UserBookBought> UserBoughtBooks { get; set; } = new HashSet<UserBookBought>();

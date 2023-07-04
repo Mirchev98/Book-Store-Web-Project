@@ -20,12 +20,20 @@ namespace BookStore.Services.Data
             Author? author = await db.Authors
                             .FirstOrDefaultAsync(a => a.FullName == name);
 
+            return author;
+        }
+
+        public async Task<bool> ValidateAuthor(string name)
+        {
+            Author? author = await db.Authors
+                .FirstOrDefaultAsync(a => a.FullName == name);
+
             if (author == null)
             {
-                throw new ArgumentNullException();
+                return false;
             }
 
-            return author;
+            return true;
         }
     }
 }
