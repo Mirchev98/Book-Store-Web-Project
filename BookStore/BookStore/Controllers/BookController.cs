@@ -1,6 +1,7 @@
 ﻿using BookStore.Data.Models;
 using BookStore.Services.Data;
 using BookStore.Services.Data.Interfaces;
+using BookStore.Services.Data.Models;
 using BookStore.Web.ViewModels.Book;
 using BookStore.Web.ViewModels.Category;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,18 @@ namespace BookStore.Controllers
             this.authorService = authorService;
             this.bookService = bookService;
             this.categoryService = categoryService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> All([FromQuery]BookAllQueryModel query)
+        {
+            AllBooksFilteredAndOrdered model = await bookService.AllAsync(query);
+
+            query.Books = model.Books;
+            query.TotalBooks = model.TotalBooksCount;
+            query.Categories = await categoryService.AllCategoryNames();
+
+            return View(query);
         }
 
         [HttpGet]

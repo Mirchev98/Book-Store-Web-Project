@@ -19,6 +19,13 @@ namespace BookStore.Services.Data
             this.db = db;
         }
 
+        public async Task<IEnumerable<string>> AllCategoryNames()
+        {
+            return await db.Categories
+                .Select(c => c.Name)
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<CategoryViewModel>> GetCategoriesAsync()
         {
             return await db.Categories

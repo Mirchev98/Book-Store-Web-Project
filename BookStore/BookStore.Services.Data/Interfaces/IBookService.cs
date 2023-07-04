@@ -1,4 +1,5 @@
 ﻿using BookStore.Data.Models;
+using BookStore.Services.Data.Models;
 using BookStore.Web.ViewModels.Book;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,5 +13,7 @@ namespace BookStore.Services.Data.Interfaces
     public interface IBookService
     {
         public Task AddBook(AddBookViewModel model, Author author);
+
+        public Task<AllBooksFilteredAndOrdered> AllAsync(BookAllQueryModel queryModel);
     }
 }

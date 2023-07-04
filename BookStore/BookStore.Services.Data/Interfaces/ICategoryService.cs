@@ -10,5 +10,7 @@ namespace BookStore.Services.Data.Interfaces
     public interface ICategoryService
     {
         public Task<IEnumerable<CategoryViewModel>> GetCategoriesAsync();
+
+        public Task<IEnumerable<string>> AllCategoryNames();
     }
 }

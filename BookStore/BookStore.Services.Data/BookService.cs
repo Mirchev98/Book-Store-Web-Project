@@ -1,7 +1,9 @@
 ﻿using BookStore.Data;
 using BookStore.Data.Models;
 using BookStore.Services.Data.Interfaces;
+using BookStore.Services.Data.Models;
 using BookStore.Web.ViewModels.Book;
+using BookStore.Web.ViewModels.Book.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -36,6 +38,70 @@ namespace BookStore.Services.Data
 
             await db.Books.AddAsync(book);
             await db.SaveChangesAsync();
+        }
+
+        public async Task<AllBooksFilteredAndOrdered> AllAsync(BookAllQueryModel queryModel)
+        {
+            IQueryable<Book> bookQuery = this.db
+                                .Books
+                                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(queryModel.CategoryName))
+            {
+                bookQuery = bookQuery
+                    .Where(h => h.Category.Name == queryModel.CategoryName);
+            }
+
+            if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
+            {
+                string wildCard = $"%{queryModel.SearchString.ToLower()}%";
+
+                bookQuery = bookQuery
+                    .Where(h => EF.Functions.Like(h.Title, wildCard) ||
+                                EF.Functions.Like(h.Author.FullName, wildCard) ||
+                                EF.Functions.Like(h.Description, wildCard));
+            }
+
+            bookQuery = queryModel.BookSorting switch
+            {
+                BookSortEnum.AlphabeticallyAscending => bookQuery
+                    .OrderBy(b => b.Title),
+                BookSortEnum.AlphabeticallyDescending => bookQuery
+                    .OrderByDescending(b => b.Title),
+                BookSortEnum.PriceAscending => bookQuery
+                    .OrderBy(b => b.Price),
+                BookSortEnum.PriceDescending => bookQuery
+                    .OrderByDescending(b => b.Price),
+                BookSortEnum.ByAuthorDescending => bookQuery
+                    .OrderByDescending (b => b.Author.FullName),
+                BookSortEnum.ByAuthorAscending => bookQuery
+                    .OrderBy (b => b.Author.FullName),
+                _ => bookQuery
+                    .OrderBy(b => b.Title)
+            };
+
+            IEnumerable<BookAllViewModel> books = await bookQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.BooksPerPage)
+                .Take(queryModel.BooksPerPage)
+                .Select(b => new BookAllViewModel
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    Description = b.Description,
+                    PhotoUrl = b.PhotoUrl,
+                    Price = b.Price,
+                    AuthorName = b.Author.FullName,
+                    CategoryName = b.Category.Name
+                })
+                .ToArrayAsync();
+            
+            int totalBooksCount = bookQuery.Count();
+
+            return new AllBooksFilteredAndOrdered()
+            {
+                TotalBooksCount = totalBooksCount,
+                Books = books
+            };
         }
     }
 }
