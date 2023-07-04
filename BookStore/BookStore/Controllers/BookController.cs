@@ -47,6 +47,11 @@ namespace BookStore.Controllers
                 return View(model);
             }
 
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             Author author = await authorService.GetAuthorByNameAsync(model.Author);
             await bookService.AddBook(model, author);
 

@@ -34,6 +34,6 @@ namespace BookStore.Web.ViewModels.Book
 
         public string CategoryId { get; set; } = null!;
 
-        public IEnumerable<CategoryViewModel> Categories { get; set; } = null!;
+        public IEnumerable<CategoryViewModel> Categories { get; set; } = new List<CategoryViewModel>();
     }
 }
