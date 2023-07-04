@@ -29,7 +29,7 @@ namespace BookStore.Services.Data
                 Title = model.Title,
                 Description = model.Description,
                 AuthorId = author.Id,
-                CategoryId = Guid.Parse(model.CategoryId),
+                CategoryId = int.Parse(model.CategoryId),
                 Price = model.Price,
                 PhotoUrl = model.PhotoUrl
             };

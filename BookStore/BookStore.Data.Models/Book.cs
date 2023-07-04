@@ -30,7 +30,7 @@ namespace BookStore.Data.Models
 
         [Required]
         [ForeignKey(nameof(Category))]
-        public Guid CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
         [Required]
         public Category Category { get; set; } = null!;
@@ -45,7 +45,7 @@ namespace BookStore.Data.Models
 
         [Required]
         [MaxLength(DataConstants.PhotoUrlMaxLen)]
-        public string PhotoUrl { get; set; }
+        public string PhotoUrl { get; set; } = null!;
 
         [Required]
         public decimal Price { get; set; }
