@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20230628163136_Initial")]
-    partial class Initial
+    [Migration("20230704092157_Second")]
+    partial class Second
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -156,6 +156,9 @@ namespace BookStore.Migrations
                         .HasMaxLength(2050)
                         .HasColumnType("nvarchar(2050)");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -174,9 +177,10 @@ namespace BookStore.Migrations
                         {
                             Id = 1,
                             AuthorId = 1,
-                            CategoryId = new Guid("acfceddf-a1b3-4d16-9997-fc98fd525f78"),
+                            CategoryId = new Guid("3b965fde-74ad-48f4-a400-16efee19c88c"),
                             Description = "The Eye of the World is a high fantasy novel by American writer Robert Jordan, the first book of The Wheel of Time series. It was published by Tor Books and released on 15 January 1990. The unabridged audiobook is read by Michael Kramer and Kate Reading. Upon first publication, The Eye of the World consisted of one prologue and 53 chapters, with an additional prologue authored upon re-release. The book was a critical, and commercial success. Critics praised the tone, the themes, and the similarity to Lord of the Rings (although some criticized it for that). On 2 January 2002, The Eye of the World was re-released as two separate books aimed at a young adult market, with larger text and a handful of illustrations. These were From the Two Rivers and To the Blight. The former included an additional prologue entitled \"Ravens\", focusing on Egwene al'Vere. The American Library Association put The Eye of the World on its 2003 list of Popular Paperbacks for Young Adults. After the release of The Wheel of Time television series, The Eye of the World made the January 2022 The New York Times Best Seller list in the mass market category and was number one on the audio fiction list.",
                             PhotoUrl = "https://upload.wikimedia.org/wikipedia/en/0/00/WoT01_TheEyeOfTheWorld.jpg",
+                            Price = 0m,
                             Title = "The Eye of the World"
                         });
                 });
@@ -198,7 +202,7 @@ namespace BookStore.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("acfceddf-a1b3-4d16-9997-fc98fd525f78"),
+                            Id = new Guid("3b965fde-74ad-48f4-a400-16efee19c88c"),
                             Name = "Fantasy"
                         });
                 });

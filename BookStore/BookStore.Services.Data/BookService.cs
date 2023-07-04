@@ -14,17 +14,14 @@ namespace BookStore.Services.Data
     public class BookService : IBookService
     {
         private BookStoreDbContext db;
-        private IAuthorService authorService;
 
-        public BookService(BookStoreDbContext db, AuthorService authorService)
+        public BookService(BookStoreDbContext db)
         {
             this.db = db;
-            this.authorService = authorService;
         }
 
-        public async Task AddBook(AddBookViewModel model)
+        public async Task AddBook(AddBookViewModel model, Author author)
         {
-            Author author = await authorService.GetAuthorByNameAsync(model.Author);
             
             Book book = new Book
             {
@@ -33,7 +30,8 @@ namespace BookStore.Services.Data
                 Description = model.Description,
                 AuthorId = author.Id,
                 CategoryId = Guid.Parse(model.CategoryId),
-                Price = model.Price
+                Price = model.Price,
+                PhotoUrl = model.PhotoUrl
             };
 
             await db.Books.AddAsync(book);

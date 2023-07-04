@@ -14,7 +14,7 @@ namespace BookStore.Controllers
         private IBookService bookService;
         private ICategoryService categoryService;
 
-        public BookController(AuthorService authorService, BookService bookService, CategoryService categoryService)
+        public BookController(IAuthorService authorService, IBookService bookService, ICategoryService categoryService)
         {
             this.authorService = authorService;
             this.bookService = bookService;
@@ -36,15 +36,19 @@ namespace BookStore.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddBookViewModel model)
         {
+            IEnumerable<CategoryViewModel> categories = await categoryService.GetCategoriesAsync();
+
+            model.Categories = categories;
+
             if (!await authorService.ValidateAuthor(model.Author)) 
             {
                 ModelState.AddModelError(nameof(model.Author), "Author does not exist in database! Please add the author, before the book!");
+
+                return View(model);
             }
 
-            if (ModelState.IsValid)
-            {
-                await bookService.AddBook(model);
-            }
+            Author author = await authorService.GetAuthorByNameAsync(model.Author);
+            await bookService.AddBook(model, author);
 
             return RedirectToAction("Home", "Index");
         }

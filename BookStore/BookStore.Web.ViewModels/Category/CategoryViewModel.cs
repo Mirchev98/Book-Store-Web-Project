@@ -8,7 +8,7 @@ namespace BookStore.Web.ViewModels.Category
 {
     public class CategoryViewModel
     {
-        public string CategoryId { get; set; } = null!;
+        public string CategoryId { get; set; }
 
         public string Name { get; set; } = null!;
     }

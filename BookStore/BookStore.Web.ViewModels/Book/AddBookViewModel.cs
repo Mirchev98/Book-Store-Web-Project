@@ -18,7 +18,7 @@ namespace BookStore.Web.ViewModels.Book
         public string Title { get; set; } = null!;
 
         [Required]
-        [StringLength(DataConstants.BookDesMaxLen, MinimumLength = DataConstants.BookDesMaxLen)]
+        [StringLength(DataConstants.BookDesMaxLen, MinimumLength = DataConstants.BookDesMinLen)]
         public string Description { get; set; } = null!;
 
         [Required]
@@ -34,7 +34,6 @@ namespace BookStore.Web.ViewModels.Book
 
         public string CategoryId { get; set; } = null!;
 
-        [Required]
         public IEnumerable<CategoryViewModel> Categories { get; set; } = null!;
     }
 }

@@ -18,7 +18,7 @@ namespace BookStore.Services.Data
         public async Task<Author> GetAuthorByNameAsync(string name)
         {
             Author? author = await db.Authors
-                            .FirstOrDefaultAsync(a => a.FullName == name);
+                            .FirstAsync(a => a.FullName == name);
 
             return author;
         }

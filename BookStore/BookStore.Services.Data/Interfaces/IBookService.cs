@@ -1,4 +1,5 @@
-﻿using BookStore.Web.ViewModels.Book;
+﻿using BookStore.Data.Models;
+using BookStore.Web.ViewModels.Book;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace BookStore.Services.Data.Interfaces
 {
     public interface IBookService
     {
-        public Task AddBook(AddBookViewModel model);
+        public Task AddBook(AddBookViewModel model, Author author);
     }
 }
