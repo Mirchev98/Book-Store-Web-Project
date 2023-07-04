@@ -7,7 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
+    <ProjectReference Include="..\BookStore.Data.Models\BookStore.Data.Models.csproj" />
+    <ProjectReference Include="..\BookStore.Data\BookStore.Data.csproj" />
+    <ProjectReference Include="..\BookStore.Web.Infrastructure\BookStore.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\BookStore.Web.ViewModels\BookStore.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>
