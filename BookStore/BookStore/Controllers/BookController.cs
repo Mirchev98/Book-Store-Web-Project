@@ -68,7 +68,7 @@ namespace BookStore.Controllers
             Author author = await authorService.GetAuthorByNameAsync(model.Author);
             await bookService.AddBook(model, author);
 
-            return RedirectToAction("Home", "Index");
+            return RedirectToAction("All");
         }
     }
 }

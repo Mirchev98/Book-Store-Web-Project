@@ -14,7 +14,7 @@ namespace BookStore.Web.ViewModels.Book
         public BookAllQueryModel()
         {
             CurrentPage = 1;
-            BooksPerPage = 9;
+            BooksPerPage = 6;
 
             Categories = new List<string>();
             Books = new List<BookAllViewModel>();

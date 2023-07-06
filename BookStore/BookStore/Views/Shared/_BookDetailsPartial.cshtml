@@ -1,42 +1,45 @@
 ﻿@model BookAllViewModel
 
-<div class="col-md-4">
+<div class="col-md-2">
     <div class="card mb-3">
-        <img class="card-img-top" src="@Model.PhotoUrl" alt="Book Image">
+        <img class="img-thumbnail card-img-top" src="@Model.PhotoUrl" alt="Book Image">
         <div class="card-body text-center">
             <h4>@Model.Title</h4>
             <h6>Author: <b>@Model.AuthorName</b></h6>
             <h6>
-                Price Per Month:
+                Category: <b>@Model.CategoryName</b>
+            </h6>
+
+            <h6>
+                Price:
                 <b>@($"{Model.Price:f2}") BGN</b>
             </h6>
             <br />
+            
             <a asp-controller="Book" asp-action="Details" asp-route-id="@Model.Id"
                class="btn btn-success">Details</a>
 
-@*            @if (this.User.Identity?.IsAuthenticated ?? false)
+            @if (this.User.Identity?.IsAuthenticated ?? false)
             {
-                <a asp-controller="House" asp-action="Edit" asp-route-id="@Model.Id"
+
+                <a asp-controller="Book" asp-action="Edit" asp-route-id="@Model.Id"
                    class="btn btn-warning">Edit</a>
                 <a asp-controller="House" asp-action="Delete" asp-route-id="@Model.Id"
                    class="btn btn-danger">Delete</a>
                 <p></p>
 
-                @if (!Model.IsRented)
-                {
-                    <form class="input-group-sm" asp-controller="House"
-                          asp-action="Rent" asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-primary" type="submit" value="Rent" />
-                    </form>
-                }
-                else
-                {
-                    <form asp-controller="House" asp-action="Leave"
-                          asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-primary" type="submit" value="Leave" />
-                    </form>
-                }
-            }*@
+                <form class="input-group-sm" asp-controller="Book"
+                      asp-action="AddToFavorite" asp-route-id="@Model.Id" method="post">
+                    <input class="btn btn-primary" type="submit" value="Add To Favorite" />
+                </form>
+
+                <p></p>
+
+                <form class="input-group-sm" asp-controller="Book"
+                      asp-action="Purchase" asp-route-id="@Model.Id" method="post">
+                    <input class="btn btn-primary" type="submit" value="Purchase" />
+                </form>
+            }
         </div>
     </div>
 </div>

@@ -15,7 +15,7 @@ namespace BookStore.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("All", "Book");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
