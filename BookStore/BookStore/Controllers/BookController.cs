@@ -62,11 +62,15 @@ namespace BookStore.Controllers
 
             if(!ModelState.IsValid)
             {
+                TempData["ErrorMessage"] = "Invalid boook data!";
+                
                 return View(model);
             }
 
             Author author = await authorService.GetAuthorByNameAsync(model.Author);
             await bookService.AddBook(model, author);
+
+            TempData["Success"] = "Book added succesfully!";
 
             return RedirectToAction("All");
         }

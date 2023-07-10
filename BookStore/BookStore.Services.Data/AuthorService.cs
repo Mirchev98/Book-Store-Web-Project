@@ -1,6 +1,8 @@
 ﻿using BookStore.Data;
 using BookStore.Data.Models;
 using BookStore.Services.Data.Interfaces;
+using BookStore.Web.ViewModels.Author;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -13,6 +15,22 @@ namespace BookStore.Services.Data
         public AuthorService(BookStoreDbContext db)
         {
             this.db = db;
+        }
+
+        public async Task AddAuthorAsync(AddAuthorFormModel model)
+        {
+            Author author = new Author
+            {
+                Id = model.Id,
+                FullName = model.FullName,
+                ShortBiography = model.ShortBiography,
+                PhotoUrl = model.PhotoUrl
+            };
+
+            await db.Authors
+                .AddAsync(author);
+
+            await db.SaveChangesAsync();
         }
 
         public async Task<Author> GetAuthorByNameAsync(string name)
