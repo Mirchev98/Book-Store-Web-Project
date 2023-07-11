@@ -4,6 +4,7 @@ using BookStore.Services.Data.Interfaces;
 using BookStore.Services.Data.Models;
 using BookStore.Web.ViewModels.Book;
 using BookStore.Web.ViewModels.Book.Enums;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -102,6 +103,32 @@ namespace BookStore.Services.Data
                 TotalBooksCount = totalBooksCount,
                 Books = books
             };
+        }
+
+        public async Task<BookDetailsViewModel> GetBookAsync(BookDetailsViewModel model, int id)
+        {
+            Book? book = await db.Books
+                .Include(a => a.Author)
+                .Include(c => c.Category)
+                .FirstOrDefaultAsync(b => b.Id == id);
+
+            if (book == null) 
+            {
+                return null;
+            }
+
+            model.Id = book.Id;
+            model.Title = book.Title;
+            model.Description = book.Description;
+            model.Price = book.Price;
+            model.PhotoUrl = book.PhotoUrl;
+            model.CategoryId = book.CategoryId;
+            model.AuthorId = book.AuthorId;
+            model.Reviews = book.Reviews;
+            model.AuthorName = book.Author.FullName;
+            model.CategoryName = book.Category.Name;
+
+            return model;
         }
     }
 }

@@ -74,5 +74,15 @@ namespace BookStore.Controllers
 
             return RedirectToAction("All");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            BookDetailsViewModel model = new BookDetailsViewModel();
+
+            model = await bookService.GetBookAsync(model, id);
+
+            return View(model);
+        }
     }
 }
