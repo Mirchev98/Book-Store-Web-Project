@@ -34,6 +34,8 @@ namespace BookStore
             builder.Services.AddScoped<IBookService, BookService>();
             builder.Services.AddScoped<IAuthorService, AuthorService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IReviewServices, ReviewServices>();
+            builder.Services.AddScoped<IUserService, UserServices>();
 
             builder.Services
                 .AddControllersWithViews()

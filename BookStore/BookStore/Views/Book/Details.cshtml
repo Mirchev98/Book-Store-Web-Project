@@ -33,9 +33,16 @@
                        asp-route-id="@Model.Id">Add to favourite</a>
                 }
             </div>
+            <p></p>
+            <div class="form-inline align-self-center">
+                <p text-centre style="font-size:25px;"><u>Reviews</u></p>
+                    <div>
+                        <a class="ml-2 btn btn-primary" asp-controller="Review" asp-action="Add"
+                        asp-route-id="@Model.Id">Write a Review</a>
+                    </div>
+            </div>
             @if (Model.Reviews.Count > 0)
             {
-                <p style="font-size:25px;"><u>Reviews</u></p>
                 
                 foreach (Review review in Model.Reviews)
                 {
@@ -48,6 +55,11 @@
                     </div>
                 }
             }
+           else
+            {
+                <p text-centre style="font-size:25px;">No reviews yet!</p>
+            }
+
         </div>
     </div>
 </div>
