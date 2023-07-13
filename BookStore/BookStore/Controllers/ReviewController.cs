@@ -4,9 +4,10 @@ namespace BookStore.Controllers
 {
     public class ReviewController : Controller
     {
-        public IActionResult Index()
+        [HttpGet]
+        public Task<IActionResult> Add()
         {
-            return View();
+
         }
     }
 }

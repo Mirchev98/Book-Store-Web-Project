@@ -25,6 +25,8 @@ namespace BookStore.Common
         //Review Data Constants
         public const int ReviewMinLen = 2;
         public const int ReviewMaxLen = 150;
+        public const int ReviewStarsMin = 1;
+        public const int ReviewStarsMax = 5;
 
         //General Constants
         public const int PhotoUrlMaxLen = 2050;

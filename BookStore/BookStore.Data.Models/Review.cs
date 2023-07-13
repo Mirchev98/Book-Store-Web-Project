@@ -21,6 +21,7 @@ namespace BookStore.Data.Models
         public Guid Id { get; set; }
 
         [Required]
+        [Range(DataConstants.ReviewStarsMin, DataConstants.ReviewStarsMax)]
         public int StarRating { get; set; }
 
         [Required]

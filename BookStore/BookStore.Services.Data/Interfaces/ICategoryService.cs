@@ -1,4 +1,5 @@
 ﻿using BookStore.Web.ViewModels.Category;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,10 @@ namespace BookStore.Services.Data.Interfaces
         public Task<IEnumerable<CategoryViewModel>> GetCategoriesAsync();
 
         public Task<IEnumerable<string>> AllCategoryNames();
+
+        public Task<bool> CheckIfCategoryExistsAsync(string name);
+
+        public Task AddCategoryAsync(string categoryName);
+
     }
 }
