@@ -28,6 +28,10 @@ namespace BookStore.Common
         public const int ReviewStarsMin = 1;
         public const int ReviewStarsMax = 5;
 
+        //Category Data Constants
+        public const int CategoryMinNameLen = 3;
+        public const int CategoryMaxNameLen = 20;
+
         //General Constants
         public const int PhotoUrlMaxLen = 2050;
     }
