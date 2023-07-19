@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 
 namespace BookStore.Controllers
 {
-    public class BookController : Controller
+    public class BookController : BaseController
     {
         private IAuthorService authorService;
         private IBookService bookService;

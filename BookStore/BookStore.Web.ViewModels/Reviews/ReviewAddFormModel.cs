@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookStore.Web.ViewModels.Review
+namespace BookStore.Web.ViewModels.Reviews
 {
     public class ReviewAddFormModel
     {
@@ -19,7 +19,7 @@ namespace BookStore.Web.ViewModels.Review
         [Range(DataConstants.ReviewStarsMin, DataConstants.ReviewStarsMax)]
         public int StarRating { get; set; }
 
-        public Guid ReviewerId { get; set; }
+        public string ReviewerId { get; set; }
 
         public string ReviewerName { get; set; }
 

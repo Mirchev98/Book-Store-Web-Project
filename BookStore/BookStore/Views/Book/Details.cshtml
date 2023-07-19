@@ -37,23 +37,13 @@
             <div class="form-inline align-self-center">
                 <p text-centre style="font-size:25px;"><u>Reviews</u></p>
                     <div>
-                        <a class="ml-2 btn btn-primary" asp-controller="Review" asp-action="Add"
+                        <a class="ml-2 btn btn-primary" asp-controller="Reviews" asp-action="Add"
                         asp-route-id="@Model.Id">Write a Review</a>
                     </div>
             </div>
             @if (Model.Reviews.Count > 0)
             {
                 
-                foreach (Review review in Model.Reviews)
-                {
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">@review.ReviewText</h5>
-                            <p class="card-text">@review.StarRating.ToString()</p>
-                            <p class="card-text">@review.Reviewer.Email.Split('@')[0];</p>
-                        </div>
-                    </div>
-                }
             }
            else
             {

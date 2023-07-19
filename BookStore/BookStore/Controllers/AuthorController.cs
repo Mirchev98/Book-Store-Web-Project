@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
 {
-    public class AuthorController : Controller
+    public class AuthorController : BaseController
     {
         private IAuthorService authorService;
 
