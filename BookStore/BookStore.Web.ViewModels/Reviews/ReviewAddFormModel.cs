@@ -12,6 +12,11 @@ namespace BookStore.Web.ViewModels.Reviews
 {
     public class ReviewAddFormModel
     {
+        public ReviewAddFormModel()
+        {
+            Id = Guid.NewGuid();
+        }
+
         public Guid Id { get; set; }
 
         [Required]

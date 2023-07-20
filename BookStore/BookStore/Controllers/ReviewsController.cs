@@ -14,11 +14,13 @@ namespace BookStore.Controllers
             this.reviewService = reviewService;
         }
 
-        [HttpGet]
+        [HttpGet("add/id")]
         public IActionResult Add(int bookId)
         {
             string? id = GetId(User);
             string? email = GetEmail(User);
+
+
 
             if (id == null || email == null)
             {
@@ -37,7 +39,28 @@ namespace BookStore.Controllers
             return View(form);
         }
 
-        
+        [HttpPost]
+        public async Task<IActionResult> Add(ReviewAddFormModel model)
+        {
+            string? id = GetId(User);
+            string? email = GetEmail(User);
+
+            model.ReviewerId = id;
+            model.ReviewerName = email;
+
+            if (!ModelState.IsValid)
+            {
+                TempData["ErrorMessage"] = "Invalid model!";
+
+                return View(model);
+            }
+
+            await reviewService.Add(model);
+
+            TempData["Success"] = "Review added succesfully!";
+
+            return RedirectToAction("All", "Book");
+        }
 
     }
 }
