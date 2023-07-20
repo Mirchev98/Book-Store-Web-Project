@@ -84,5 +84,11 @@ namespace BookStore.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            return Ok();
+        }
     }
 }

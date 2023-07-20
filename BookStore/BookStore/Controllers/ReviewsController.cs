@@ -14,15 +14,15 @@ namespace BookStore.Controllers
             this.reviewService = reviewService;
         }
 
-        [HttpGet("add/id")]
-        public IActionResult Add(int bookId)
+        [HttpGet]
+        public IActionResult Add(int id)
         {
-            string? id = GetId(User);
+            string? userId = GetId(User);
             string? email = GetEmail(User);
 
 
 
-            if (id == null || email == null)
+            if (userId == null || email == null)
             {
                 //Redirect to error page here
                 TempData["ErrorMessage"] = "No user found!";
@@ -32,9 +32,9 @@ namespace BookStore.Controllers
 
             ReviewAddFormModel form = new ReviewAddFormModel();
 
-            form.ReviewerId = id;
+            form.ReviewerId = userId;
             form.ReviewerName = email;
-            form.BookId = bookId;
+            form.BookId = id;
 
             return View(form);
         }
