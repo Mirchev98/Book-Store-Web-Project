@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BookStore.Common;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookStore.Web.ViewModels.Category
 {
@@ -10,6 +7,7 @@ namespace BookStore.Web.ViewModels.Category
     {
         public string CategoryId { get; set; } = null!;
 
+        [StringLength(DataConstants.CategoryMaxNameLen, MinimumLength = DataConstants.CategoryMinNameLen)]
         public string Name { get; set; } = null!;
     }
 }

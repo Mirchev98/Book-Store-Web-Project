@@ -16,7 +16,7 @@ namespace BookStore.Services.Data.Interfaces
 
         public Task<bool> CheckIfCategoryExistsAsync(string name);
 
-        public Task AddCategoryAsync(string categoryName);
+        public Task AddCategoryAsync(CategoryViewModel model);
 
     }
 }

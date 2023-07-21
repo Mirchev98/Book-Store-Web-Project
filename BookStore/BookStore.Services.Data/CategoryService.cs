@@ -21,14 +21,15 @@ namespace BookStore.Services.Data
             this.db = db;
         }
 
-        public async Task AddCategoryAsync(string categoryName)
+        public async Task AddCategoryAsync(CategoryViewModel model)
         {
             Category category = new Category() 
             {
-                Name = categoryName
+                Name = model.Name
             };
 
             await db.Categories.AddAsync(category);
+            await db.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<string>> AllCategoryNames()
