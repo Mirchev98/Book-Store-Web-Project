@@ -30,6 +30,8 @@ namespace BookStore.Data.Models
 
         public ApplicationUser Reviewer { get; set; }
 
+        public string ReviewerName { get; set; }
+
         [Required]
         [MaxLength(DataConstants.ReviewMaxLen)]
         public string ReviewText { get; set; } = null!;

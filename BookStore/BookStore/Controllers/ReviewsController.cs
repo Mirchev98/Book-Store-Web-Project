@@ -20,8 +20,6 @@ namespace BookStore.Controllers
             string? userId = GetId(User);
             string? email = GetEmail(User);
 
-
-
             if (userId == null || email == null)
             {
                 //Redirect to error page here
@@ -36,28 +34,55 @@ namespace BookStore.Controllers
             form.ReviewerName = email;
             form.BookId = id;
 
+            ViewBag.Id = id;
+            ViewBag.ReviewerId = userId;
+            ViewBag.ReviewerName = email;
+
             return View(form);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(ReviewAddFormModel model)
+        public async Task<IActionResult> Add(ReviewAddFormModel form, int id)
         {
-            string? id = GetId(User);
+
+            string? userId = GetId(User);
             string? email = GetEmail(User);
 
-            model.ReviewerId = id;
-            model.ReviewerName = email;
-
-            if (!ModelState.IsValid)
+            if (userId == null || email == null)
             {
-                TempData["ErrorMessage"] = "Invalid model!";
+                //Redirect to error page here
+                TempData["ErrorMessage"] = "No user found!";
 
-                return View(model);
+                return RedirectToAction("Details", "Book", new { id });
             }
 
-            await reviewService.Add(model);
+            form.ReviewerId = userId;
+            form.ReviewerName = email;
+            form.BookId = id;
+
+            await reviewService.Add(form);
 
             TempData["Success"] = "Review added succesfully!";
+
+            return RedirectToAction("Details", "Book", new { id });
+        }
+
+        public async Task<IActionResult> Remove(string id)
+        {
+            var reviewId = Guid.Parse(id);
+            
+            var review = reviewService.FindReviewAsync(reviewId);
+
+            if (review == null)
+            {
+                TempData["ErrorMessage"] = "No review found!";
+
+                return RedirectToAction("All", "Book");
+            }
+
+            await reviewService.RemoveAsync(reviewId);
+
+            TempData["Success"] = "Review removed succesfully!";
 
             return RedirectToAction("All", "Book");
         }

@@ -14,12 +14,15 @@ namespace BookStore.Controllers
         private IAuthorService authorService;
         private IBookService bookService;
         private ICategoryService categoryService;
+        private IReviewServices reviewServices;
 
-        public BookController(IAuthorService authorService, IBookService bookService, ICategoryService categoryService)
+        public BookController(IAuthorService authorService, IBookService bookService, ICategoryService categoryService, IReviewServices reviewServices)
         {
             this.authorService = authorService;
             this.bookService = bookService;
             this.categoryService = categoryService;
+            this.reviewServices = reviewServices;
+
         }
 
         [HttpGet]

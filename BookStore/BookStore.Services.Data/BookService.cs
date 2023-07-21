@@ -110,6 +110,7 @@ namespace BookStore.Services.Data
             Book? book = await db.Books
                 .Include(a => a.Author)
                 .Include(c => c.Category)
+                .Include (d => d.Reviews)
                 .FirstOrDefaultAsync(b => b.Id == id);
 
             if (book == null) 

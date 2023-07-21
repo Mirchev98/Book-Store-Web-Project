@@ -1,4 +1,5 @@
-﻿using BookStore.Web.ViewModels.Reviews;
+﻿using BookStore.Data.Models;
+using BookStore.Web.ViewModels.Reviews;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,10 @@ namespace BookStore.Services.Data.Interfaces
     public interface IReviewServices
     {
         public Task Add(ReviewAddFormModel model);
+
+        public Task RemoveAsync(Guid id);
+
+        public Task<Review> FindReviewAsync(Guid id);
+
     }
 }

@@ -36,16 +36,32 @@
             <p></p>
             <div class="form-inline align-self-center">
                 <p text-centre style="font-size:25px;"><u>Reviews</u></p>
-                <a class="ml-2 btn btn-success" asp-controller="Reviews" asp-action="Add"
+                <a class="ml-2 btn btn-info" asp-controller="Reviews" asp-action="Add"
                    asp-route-id="@Model.Id">Write a Review</a>
             </div>
-            @if (Model.Reviews.Count > 0)
-            {
-                
-            }
-           else
+
+            @if (Model.Reviews.Count == 0)
             {
                 <p text-centre style="font-size:25px;">No reviews yet!</p>
+            }
+
+            @foreach(Review review in Model.Reviews)
+            {
+                <br />
+                <div class="form-inline align-self-center card col-8 border-1">
+                    <p style="font-size:15px;"><b>@review.ReviewText</b></p>
+                    <p>Written by: <b>@review.ReviewerName</b></p>
+                    <p>Rating: <b>@review.StarRating/5</b></p>
+                    @{
+                        if (review.ReviewerName == User.Identity.Name)
+                        {
+                            <div class="form-inline align-self-center">
+                                <a class="btn btn-danger" asp-controller="Reviews" asp-action="Remove"
+                                   asp-route-id="@review.Id">Remove</a>
+                            </div>
+                        }
+                    }
+                </div>
             }
 
         </div>

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using BookStore.Data.Models;
+using BookStore.Web.ViewModels.Reviews;
+
 namespace BookStore.Web.ViewModels.Book
 {
     public class BookDetailsViewModel
