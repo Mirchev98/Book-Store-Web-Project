@@ -4,6 +4,8 @@
     int count = 0;
 }
 
+@inject ICategoryService CategoryService;
+
 <h2 class="text-center">@ViewData["Title"]</h2>
 <hr />
 
@@ -12,6 +14,8 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Cateogry Name</th>
+            <th scpoe="row">Remove Category</th>
+            <th scpoe="row">Edit Category</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +25,27 @@
             <tr>
                 <th scope="row">@count</th>
                 <td>@category.Name</td>
+                @{
+                    if (CategoryService.CheckIfAnyBooksWithGivenCategory(category.CategoryId))
+                    {
+                        <td>All books with the given Category must be removed first, before the category!</td>
+                    }
+                    else
+                    {
+                        <td>
+                            <div class="form-inline align-self-center">
+                                <a class="btn btn-danger" asp-controller="Category" asp-action="Remove"
+                                   asp-route-id="@category.CategoryId">Remove</a>
+                            </div>
+                        </td>
+                    }
+                 }
+                <td>
+                    <div class="form-inline align-self-center">
+                        <a class="btn btn-danger" asp-controller="Category" asp-action="Edit"
+                           asp-route-id="@category.CategoryId">Edit</a>
+                    </div>
+                </td>
             </tr>
         }
     </tbody>

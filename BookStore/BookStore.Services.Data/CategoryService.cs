@@ -39,6 +39,16 @@ namespace BookStore.Services.Data
                 .ToListAsync();
         }
 
+        public bool CheckIfAnyBooksWithGivenCategory(int id)
+        {
+            if (db.Books.Any(c => c.CategoryId == id))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public async Task<bool> CheckIfCategoryExistsAsync(string name)
         {
             Category? category = await db.Categories.FirstOrDefaultAsync(c => c.Name == name);
@@ -51,14 +61,39 @@ namespace BookStore.Services.Data
             return true;
         }
 
+        public async Task EditCategoryAsync(Category model)
+        {
+            Category? category = await db.Categories.FindAsync(model.Id);
+
+            category.Name = model.Name;
+
+            await db.SaveChangesAsync();
+        }
+
+        public Category FindCategory(int id)
+        {
+            return db.Categories
+                .Where(c => c.Id == id)
+                .First(c => c.Id == id);
+        }
+
         public async Task<IEnumerable<CategoryViewModel>> GetCategoriesAsync()
         {
             return await db.Categories
                 .Select(c => new CategoryViewModel
                 {
-                    CategoryId = c.Id.ToString(),
+                    CategoryId = c.Id,
                     Name = c.Name
                 }).ToListAsync();
+        }
+
+        public async Task RemoveAsync(int id)
+        {
+            Category? category = await db.Categories.FindAsync(id);
+            
+            db.Categories.Remove(category);
+
+            await db.SaveChangesAsync();
         }
     }
 }

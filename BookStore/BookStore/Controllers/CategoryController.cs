@@ -1,4 +1,5 @@
-﻿using BookStore.Services.Data.Interfaces;
+﻿using BookStore.Data.Models;
+using BookStore.Services.Data.Interfaces;
 using BookStore.Web.ViewModels.Category;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,6 +36,34 @@ namespace BookStore.Controllers
             await categoryService.AddCategoryAsync(model);
 
             TempData["Success"] = "Category added succesfully!";
+
+            return RedirectToAction("All");
+        }
+
+        public async Task<IActionResult> Remove(int id)
+        {
+            await categoryService.RemoveAsync(id);
+
+            TempData["Success"] = "Category removed succesfully!";
+
+            return RedirectToAction("All");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            Category model = categoryService.FindCategory(id);
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> Edit(int id, Category model)
+        {
+            model.Id = id;
+
+            await categoryService.EditCategoryAsync(model);
+
+            TempData["Success"] = "Category edited succesfully!";
 
             return RedirectToAction("All");
         }
