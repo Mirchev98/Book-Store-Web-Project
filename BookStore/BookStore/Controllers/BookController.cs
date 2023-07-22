@@ -91,7 +91,23 @@ namespace BookStore.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            return Ok();
+            AddBookViewModel model = bookService.FindBook(id);
+
+            IEnumerable<CategoryViewModel> categories = await categoryService.GetCategoriesAsync();
+
+            model.Categories = categories;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, AddBookViewModel model)
+        {
+            await bookService.EditBook(model, id);
+
+            TempData["Success"] = "Book edited succesfully!";
+
+            return RedirectToAction("All");
         }
     }
 }

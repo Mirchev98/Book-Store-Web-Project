@@ -105,6 +105,41 @@ namespace BookStore.Services.Data
             };
         }
 
+        public async Task EditBook(AddBookViewModel model, int id)
+        {
+            Book? book = await db.Books.FindAsync(id);
+
+            Author author = await db.Authors.FirstOrDefaultAsync(a => a.FullName == model.Author);
+
+            book.Author = author;
+            book.Title = model.Title;
+            book.Description = model.Description;
+            book.PhotoUrl = model.PhotoUrl;
+            book.Price = model.Price;
+            book.CategoryId = int.Parse(model.CategoryId);
+
+            await db.SaveChangesAsync();
+        }
+
+        public AddBookViewModel FindBook(int id)
+        {
+            Book? book = db.Books.Find(id);
+
+            Author author = db.Authors.FirstOrDefault(a => a.Books.Contains(book));
+
+            AddBookViewModel model = new AddBookViewModel();
+
+            model.Id = book.Id;
+            model.Author = author.FullName;
+            model.Title = book.Title;
+            model.Description = book.Description;
+            model.PhotoUrl = book.PhotoUrl;
+            model.Price = book.Price;
+            model.CategoryId = book.CategoryId.ToString();
+
+            return model;
+        }
+
         public async Task<BookDetailsViewModel> GetBookAsync(BookDetailsViewModel model, int id)
         {
             Book? book = await db.Books

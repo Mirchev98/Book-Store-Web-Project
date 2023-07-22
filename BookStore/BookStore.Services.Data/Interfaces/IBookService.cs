@@ -17,5 +17,9 @@ namespace BookStore.Services.Data.Interfaces
         public Task<AllBooksFilteredAndOrdered> AllAsync(BookAllQueryModel queryModel);
 
         public Task<BookDetailsViewModel> GetBookAsync(BookDetailsViewModel model, int id);
+
+        public AddBookViewModel FindBook(int id);
+
+        public Task EditBook(AddBookViewModel model, int id);
     }
 }
