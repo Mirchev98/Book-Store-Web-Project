@@ -50,6 +50,8 @@ namespace BookStore.Data.Models
         [Required]
         public decimal Price { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public ICollection<FavoriteUserBook> FavoriteUsersBook { get; set; } = new HashSet<FavoriteUserBook>();
 
         public ICollection<UserBookBought> UserBoughtBooks { get; set; } = new HashSet<UserBookBought>();

@@ -26,6 +26,8 @@ namespace BookStore.Data.Models
         [MaxLength(DataConstants.PhotoUrlMaxLen)]
         public string PhotoUrl { get; set; } = null!;
 
+        public bool IsDeleted { get; set; }
+
         public ICollection<Book> Books { get; set; }
 
         public ICollection<FavoriteAuthorUser> FavoriteAuthorUsers { get; set; } = new HashSet<FavoriteAuthorUser>();
