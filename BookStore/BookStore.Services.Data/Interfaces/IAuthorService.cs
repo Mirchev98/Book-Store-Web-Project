@@ -16,5 +16,7 @@ namespace BookStore.Services.Data.Interfaces
         public Task<bool> ValidateAuthor(string name);
 
         public Task AddAuthorAsync(AddAuthorFormModel model);
+
+        public Task<IEnumerable<AllAuthorsViewModel>> GetAllAuthorsAsync();
     }
 }

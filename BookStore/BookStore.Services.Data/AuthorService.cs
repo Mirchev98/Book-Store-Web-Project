@@ -33,6 +33,18 @@ namespace BookStore.Services.Data
             await db.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<AllAuthorsViewModel>> GetAllAuthorsAsync()
+        {
+            IEnumerable<AllAuthorsViewModel> result = await db.Authors
+                .Select(a => new AllAuthorsViewModel 
+                { 
+                    Id = a.Id,
+                    Name = a.FullName
+                }).ToListAsync();
+
+            return result;
+        }
+
         public async Task<Author> GetAuthorByNameAsync(string name)
         {
             Author? author = await db.Authors
