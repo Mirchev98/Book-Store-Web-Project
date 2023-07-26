@@ -21,5 +21,7 @@ namespace BookStore.Services.Data.Interfaces
         public AddBookViewModel FindBook(int id);
 
         public Task EditBook(AddBookViewModel model, int id);
+
+        public Task<bool> DeleteBook(int id);
     }
 }

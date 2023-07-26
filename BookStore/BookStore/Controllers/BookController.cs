@@ -109,5 +109,21 @@ namespace BookStore.Controllers
 
             return RedirectToAction("All");
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            bool result = await bookService.DeleteBook(id);
+
+            if (result)
+            {
+                TempData["Success"] = "Book deleted succesfully!";
+
+                return RedirectToAction("All");
+            }
+
+            TempData["Success"] = "Book could not be deleted!";
+
+            return RedirectToAction("Details", new {id});
+        }
     }
 }

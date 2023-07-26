@@ -45,6 +45,7 @@ namespace BookStore.Services.Data
         {
             IQueryable<Book> bookQuery = this.db
                                 .Books
+                                .Where(b => b.IsDeleted == false)
                                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(queryModel.CategoryName))
@@ -92,7 +93,8 @@ namespace BookStore.Services.Data
                     PhotoUrl = b.PhotoUrl,
                     Price = b.Price,
                     AuthorName = b.Author.FullName,
-                    CategoryName = b.Category.Name
+                    CategoryName = b.Category.Name,
+                    IsDeleted = b.IsDeleted
                 })
                 .ToArrayAsync();
             
@@ -103,6 +105,22 @@ namespace BookStore.Services.Data
                 TotalBooksCount = totalBooksCount,
                 Books = books
             };
+        }
+
+        public async Task<bool> DeleteBook(int id)
+        {
+            Book book = await db.Books.FindAsync(id);
+
+            if (book == null)
+            {
+                return false;
+            }
+
+            book.IsDeleted = true;
+
+            await db.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task EditBook(AddBookViewModel model, int id)

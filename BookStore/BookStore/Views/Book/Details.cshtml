@@ -24,7 +24,7 @@
                     <a class="btn btn-warning" asp-controller="Book" asp-action="Edit"
                        asp-route-id="@Model.Id">Edit</a>
                     <a class="ml-2 btn btn-danger" asp-controller="Book" asp-action="Delete"
-                       asp-route-id="@Model.Id">Delete</a>
+                       asp-route-id="@Model.Id" confirm="Are your sure?">Delete</a>
                     <a class="ml-2 btn btn-info" asp-controller="Author" asp-action="Details"
                        asp-route-id="@Model.AuthorId">View Author</a>
                     <a class="ml-2 btn btn-success" asp-controller="Book" asp-action="Delete"
@@ -57,7 +57,7 @@
                         {
                             <div class="form-inline align-self-center">
                                 <a class="btn btn-danger" asp-controller="Reviews" asp-action="Remove"
-                                   asp-route-id="@review.Id">Remove</a>
+                                   asp-route-id="@review.Id" confirm="Are your sure?">Remove</a>
                             </div>
                         }
                     }

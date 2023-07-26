@@ -21,6 +21,8 @@ namespace BookStore.Web.ViewModels.Book
         [Display(Name = "Author")]
         public string AuthorName { get; set; } = null!;
 
+        public bool IsDeleted { get; set; }
+
         public string PhotoUrl { get; set; }
 
         public decimal Price { get; set; }
