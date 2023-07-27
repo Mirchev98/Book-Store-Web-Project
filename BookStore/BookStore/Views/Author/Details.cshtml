@@ -1,0 +1,38 @@
+﻿@model BookDetailsViewModel
+
+@{
+    ViewBag.Title = "Book Details";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.PhotoUrl" alt="Book Image">
+        </div>
+        <div class="card col-8 border-0">
+            <p style="font-size:25px;"><u>@Model.Title</u></p>
+            <p>Written by: <b>@Model.AuthorName</b></p>
+            <p>Category: <b>@Model.CategoryName</b></p>
+            <p>@Model.Description</p>
+            <div class="form-inline">
+                @if (this.User.Identity?.IsAuthenticated ?? false)
+                {
+                    <a class="btn btn-warning" asp-controller="Book" asp-action="Edit"
+                       asp-route-id="@Model.Id">Edit</a>
+                    <a class="ml-2 btn btn-danger" asp-controller="Book" asp-action="Delete"
+                       asp-route-id="@Model.Id" confirm="Are your sure?">Delete</a>
+                    <a class="ml-2 btn btn-info" asp-controller="Author" asp-action="Details"
+                       asp-route-id="@Model.AuthorId">View Author</a>
+                    <a class="ml-2 btn btn-success" asp-controller="Book" asp-action="Delete"
+                       asp-route-id="@Model.Id">Buy Book</a>
+                    <a class="ml-2 btn btn-success" asp-controller="Book" asp-action="Delete"
+                       asp-route-id="@Model.Id">Add to favourite</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
