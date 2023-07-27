@@ -1,4 +1,5 @@
-﻿using BookStore.Services.Data.Interfaces;
+﻿using BookStore.Data.Models;
+using BookStore.Services.Data.Interfaces;
 using BookStore.Web.ViewModels.Author;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,6 +54,37 @@ namespace BookStore.Controllers
             model = await authorService.GetAllAuthorsAsync();
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            Author author = await authorService.GetAuthorByIdAsync(id);
+
+            if (author == null)
+            {
+                TempData["ErrorMessage"] = "Author does not exist!";
+
+                return RedirectToAction("All");
+            }
+
+            AddAuthorFormModel emptyModel = new AddAuthorFormModel();
+
+            AddAuthorFormModel model = await authorService.FillModelById(emptyModel, id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(AddAuthorFormModel model)
+        {
+            Author author = await authorService.GetAuthorByIdAsync(model.Id);
+
+            await authorService.EditAuthor(model, author);
+
+            TempData["Success"] = "Author edited added!";
+
+            return RedirectToAction("All");
         }
     }
 }
