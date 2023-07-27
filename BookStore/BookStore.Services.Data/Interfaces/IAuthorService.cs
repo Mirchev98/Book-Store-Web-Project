@@ -22,8 +22,12 @@ namespace BookStore.Services.Data.Interfaces
 
         public Task<AddAuthorFormModel> FillModelById(AddAuthorFormModel model, int id);
 
+        public Task<AuthorDetailsViewModel> FillModelById(AuthorDetailsViewModel model, int id);
+
         public Task<Author> GetAuthorByIdAsync(int id);
 
         public Task EditAuthor(AddAuthorFormModel model, Author author);
+        
+        public Task Delete(int id);
     }
 }

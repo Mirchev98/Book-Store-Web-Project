@@ -23,5 +23,7 @@ namespace BookStore.Web.ViewModels.Author
         [Required]
         [MaxLength(DataConstants.PhotoUrlMaxLen)]
         public string PhotoUrl { get; set; } = null!;
+
+        public bool IsDeleted { get; set; }
     }
 }

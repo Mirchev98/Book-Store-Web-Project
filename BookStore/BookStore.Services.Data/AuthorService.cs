@@ -38,6 +38,7 @@ namespace BookStore.Services.Data
             author.FullName = model.FullName;
             author.ShortBiography = model.ShortBiography;
             author.PhotoUrl = model.PhotoUrl;
+            model.IsDeleted = author.IsDeleted;
 
             await db.SaveChangesAsync();
         }
@@ -48,7 +49,8 @@ namespace BookStore.Services.Data
                 .Select(a => new AllAuthorsViewModel 
                 { 
                     Id = a.Id,
-                    Name = a.FullName
+                    Name = a.FullName,
+                    IsDeleted = a.IsDeleted
                 }).ToListAsync();
 
             return result;
@@ -58,16 +60,12 @@ namespace BookStore.Services.Data
         {
             Author? author = await db.Authors.FindAsync(id);
 
-            if (author == null) 
-            {
-                return null;            
-            }
-
             model.Id = author.Id; 
             model.FullName = author.FullName;
             model.ShortBiography = author.ShortBiography;
             model.PhotoUrl = author.PhotoUrl;
-            
+            model.IsDeleted = author.IsDeleted;
+
             return model;
         }
 
@@ -102,6 +100,28 @@ namespace BookStore.Services.Data
             }
 
             return author;
+        }
+
+        public async Task<AuthorDetailsViewModel> FillModelById(AuthorDetailsViewModel model, int id)
+        {
+            Author? author = await db.Authors.FindAsync(id);
+
+            model.Id = author.Id;
+            model.FullName = author.FullName;
+            model.ShortBiography = author.ShortBiography;
+            model.PhotoUrl = author.PhotoUrl;
+            model.IsDeleted = author.IsDeleted;
+
+            return model;
+        }
+
+        public async Task Delete(int id)
+        {
+            Author author = await db.Authors.FindAsync(id);
+
+            author.IsDeleted = true;
+
+            await db.SaveChangesAsync();
         }
     }
 }

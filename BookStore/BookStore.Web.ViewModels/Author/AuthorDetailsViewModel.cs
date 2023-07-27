@@ -17,5 +17,7 @@ namespace BookStore.Web.ViewModels.Author
         public string ShortBiography { get; set; } = null!;
 
         public string PhotoUrl { get; set; } = null!;
+
+        public bool IsDeleted { get; set; }
     }
 }

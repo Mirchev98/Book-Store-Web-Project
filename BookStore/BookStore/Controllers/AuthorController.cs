@@ -53,6 +53,8 @@ namespace BookStore.Controllers
 
             model = await authorService.GetAllAuthorsAsync();
 
+            model = model.Where(a => a.IsDeleted == false);
+
             return View(model);
         }
 
@@ -61,7 +63,7 @@ namespace BookStore.Controllers
         {
             Author author = await authorService.GetAuthorByIdAsync(id);
 
-            if (author == null)
+            if (author == null || author.IsDeleted == true)
             {
                 TempData["ErrorMessage"] = "Author does not exist!";
 
@@ -83,6 +85,41 @@ namespace BookStore.Controllers
             await authorService.EditAuthor(model, author);
 
             TempData["Success"] = "Author edited added!";
+
+            return RedirectToAction("All");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            Author author = await authorService.GetAuthorByIdAsync(id);
+
+            if (author == null || author.IsDeleted == true)
+            {
+                TempData["ErrorMessage"] = "Author does not exist!";
+
+                return RedirectToAction("All");
+            }
+
+            AuthorDetailsViewModel emptyModel = new AuthorDetailsViewModel();
+
+            AuthorDetailsViewModel model = await authorService.FillModelById(emptyModel, id);
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            Author author = await authorService.GetAuthorByIdAsync(id);
+
+            if (author == null || author.IsDeleted == true)
+            {
+                TempData["ErrorMessage"] = "Author does not exist!";
+
+                return RedirectToAction("All");
+            }
+
+            await authorService.Delete(id);
 
             return RedirectToAction("All");
         }
