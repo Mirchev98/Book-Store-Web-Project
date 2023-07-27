@@ -33,6 +33,15 @@ namespace BookStore.Services.Data
             await db.SaveChangesAsync();
         }
 
+        public async Task EditAuthor(AddAuthorFormModel model, Author author)
+        {
+            author.FullName = model.FullName;
+            author.ShortBiography = model.ShortBiography;
+            author.PhotoUrl = model.PhotoUrl;
+
+            await db.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<AllAuthorsViewModel>> GetAllAuthorsAsync()
         {
             IEnumerable<AllAuthorsViewModel> result = await db.Authors
@@ -43,6 +52,23 @@ namespace BookStore.Services.Data
                 }).ToListAsync();
 
             return result;
+        }
+
+        public async Task<AddAuthorFormModel> FillModelById(AddAuthorFormModel model, int id)
+        {
+            Author? author = await db.Authors.FindAsync(id);
+
+            if (author == null) 
+            {
+                return null;            
+            }
+
+            model.Id = author.Id; 
+            model.FullName = author.FullName;
+            model.ShortBiography = author.ShortBiography;
+            model.PhotoUrl = author.PhotoUrl;
+            
+            return model;
         }
 
         public async Task<Author> GetAuthorByNameAsync(string name)
@@ -64,6 +90,18 @@ namespace BookStore.Services.Data
             }
 
             return true;
+        }
+
+        public async Task<Author> GetAuthorByIdAsync(int id)
+        {
+            Author author = await db.Authors.FindAsync(id);
+
+            if (author == null) 
+            {
+                return null;
+            }
+
+            return author;
         }
     }
 }

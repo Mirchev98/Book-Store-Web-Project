@@ -3,6 +3,7 @@ using BookStore.Web.ViewModels.Author;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,5 +19,11 @@ namespace BookStore.Services.Data.Interfaces
         public Task AddAuthorAsync(AddAuthorFormModel model);
 
         public Task<IEnumerable<AllAuthorsViewModel>> GetAllAuthorsAsync();
+
+        public Task<AddAuthorFormModel> FillModelById(AddAuthorFormModel model, int id);
+
+        public Task<Author> GetAuthorByIdAsync(int id);
+
+        public Task EditAuthor(AddAuthorFormModel model, Author author);
     }
 }
