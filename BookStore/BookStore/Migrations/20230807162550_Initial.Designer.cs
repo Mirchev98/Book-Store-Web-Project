@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20230726140626_AddingIsDeletedProperties")]
-    partial class AddingIsDeletedProperties
+    [Migration("20230807162550_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -88,6 +88,23 @@ namespace BookStore.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b8cddfc7-8fe3-4353-bcd9-07c96b63ad6d"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "bc211975-2c40-4016-91ac-6ef5cd28b128",
+                            Email = "admin@admin.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "admin@admin.com",
+                            NormalizedUserName = "admin@admin.com",
+                            PasswordHash = "AEM+6y7l/igp4DZgo0CvmrOMunMHRomjAktAMqwjbEUjUJ/V1bcCHSQzDKt1dEkvIg==",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "admin@admin.com"
+                        });
                 });
 
             modelBuilder.Entity("BookStore.Data.Models.Author", b =>

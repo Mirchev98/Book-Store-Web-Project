@@ -1,6 +1,7 @@
 ﻿using BookStore.Data.Models;
 using BookStore.Services.Data.Interfaces;
 using BookStore.Web.ViewModels.Author;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
@@ -46,6 +47,8 @@ namespace BookStore.Controllers
             return RedirectToAction("All", "Book");
         }
 
+
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> All()
         {
@@ -89,6 +92,8 @@ namespace BookStore.Controllers
             return RedirectToAction("All");
         }
 
+
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {

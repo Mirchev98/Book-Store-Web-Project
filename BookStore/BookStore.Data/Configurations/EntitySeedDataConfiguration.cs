@@ -1,10 +1,15 @@
-﻿using BookStore.Data.Models;
+﻿using BookStore.Common;
+using BookStore.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Helpers;
+using System.Xml.Linq;
 
 namespace BookStore.Data.Configurations
 {
@@ -124,6 +129,18 @@ namespace BookStore.Data.Configurations
                     PhotoUrl = "https://upload.wikimedia.org/wikipedia/en/8/8e/The_Fellowship_of_the_Ring_cover.gif",
                     Price = 50
                 });
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasData(new ApplicationUser
+                {
+                    Id = Guid.NewGuid(),
+                    Email = DataConstants.AdminEmail,
+                    NormalizedEmail = DataConstants.AdminEmail,
+                    UserName = DataConstants.AdminEmail,
+                    NormalizedUserName = DataConstants.AdminEmail,
+                    PasswordHash = Crypto.HashPassword(DataConstants.AdminPass)
+                });
+        
         }
     }
 }

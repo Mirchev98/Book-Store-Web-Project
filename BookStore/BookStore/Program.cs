@@ -1,9 +1,12 @@
+using BookStore.Common;
 using BookStore.Data;
 using BookStore.Data.Models;
 using BookStore.Services.Data;
 using BookStore.Services.Data.Interfaces;
+using BookStore.Web.Infrastructure;
 using BookStore.Web.Infrastructure.ModelBinders;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStore
@@ -21,6 +24,7 @@ namespace BookStore
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<BookStoreDbContext>();
 
             builder.Services.Configure<IdentityOptions>(options =>
@@ -42,6 +46,7 @@ namespace BookStore
                 .AddMvcOptions(options =>
                 {
                     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                 });
 
 
@@ -68,6 +73,11 @@ namespace BookStore
             app.UseAuthentication();
             app.UseAuthorization();
 
+            if (app.Environment.IsDevelopment())
+            {
+                app.SeedAdmin(DataConstants.AdminEmail);
+            }
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -75,5 +85,6 @@ namespace BookStore
 
             app.Run();
         }
+
     }
 }

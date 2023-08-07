@@ -4,6 +4,7 @@ using BookStore.Services.Data.Interfaces;
 using BookStore.Services.Data.Models;
 using BookStore.Web.ViewModels.Book;
 using BookStore.Web.ViewModels.Category;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.CompilerServices;
 
@@ -24,7 +25,8 @@ namespace BookStore.Controllers
             this.reviewServices = reviewServices;
 
         }
-
+        
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> All([FromQuery]BookAllQueryModel query)
         {
@@ -78,6 +80,7 @@ namespace BookStore.Controllers
             return RedirectToAction("All");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {

@@ -34,5 +34,10 @@ namespace BookStore.Common
 
         //General Constants
         public const int PhotoUrlMaxLen = 2050;
+
+        //Admin Constraints
+        public const string AdminRoleName = "Admin";
+        public const string AdminEmail = "admin@admin.com";
+        public const string AdminPass = "12345a";
     }
 }
