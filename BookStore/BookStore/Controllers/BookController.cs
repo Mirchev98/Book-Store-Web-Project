@@ -42,6 +42,11 @@ namespace BookStore.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
+            if (!IsAdmin(User))
+            {
+                return Unauthorized();
+            }
+
             AddBookViewModel viewModel = new AddBookViewModel();
 
             IEnumerable<CategoryViewModel> categories = await categoryService.GetCategoriesAsync();
@@ -54,6 +59,11 @@ namespace BookStore.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddBookViewModel model)
         {
+            if (!IsAdmin(User))
+            {
+                return Unauthorized();
+            }
+
             IEnumerable<CategoryViewModel> categories = await categoryService.GetCategoriesAsync();
 
             model.Categories = categories;
@@ -94,6 +104,11 @@ namespace BookStore.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+            if (!IsAdmin(User))
+            {
+                return Unauthorized();
+            }
+
             AddBookViewModel model = bookService.FindBook(id);
 
             IEnumerable<CategoryViewModel> categories = await categoryService.GetCategoriesAsync();
@@ -106,6 +121,11 @@ namespace BookStore.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, AddBookViewModel model)
         {
+            if (!IsAdmin(User))
+            {
+                return Unauthorized();
+            }
+
             await bookService.EditBook(model, id);
 
             TempData["Success"] = "Book edited succesfully!";
@@ -115,6 +135,11 @@ namespace BookStore.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
+            if (!IsAdmin(User))
+            {
+                return Unauthorized();
+            }
+
             bool result = await bookService.DeleteBook(id);
 
             if (result)

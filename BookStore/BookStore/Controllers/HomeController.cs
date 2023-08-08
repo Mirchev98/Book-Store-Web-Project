@@ -1,4 +1,5 @@
-﻿using BookStore.Models;
+﻿using BookStore.Common;
+using BookStore.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -17,6 +18,11 @@ namespace BookStore.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+            if (this.User.IsInRole(DataConstants.AdminRoleName))
+            {
+                return this.RedirectToAction("Index", "Home", new { Area = DataConstants.AdminRoleName });
+            }
+
             return RedirectToAction("All", "Book");
         }
 

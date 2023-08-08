@@ -18,6 +18,11 @@ namespace BookStore.Controllers
         [HttpGet]
         public IActionResult Add() 
         {
+            if (!IsAdmin(User))
+            {
+                return Unauthorized();
+            }
+
             AddAuthorFormModel model = new AddAuthorFormModel();
 
             return View(model);
@@ -26,6 +31,11 @@ namespace BookStore.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddAuthorFormModel model)
         {
+            if (!IsAdmin(User))
+            {
+                return Unauthorized();
+            }
+
             if (await authorService.ValidateAuthor(model.FullName))
             {
                 TempData["ErrorMessage"] = "Author already added!";
@@ -64,6 +74,11 @@ namespace BookStore.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+            if (!IsAdmin(User))
+            {
+                return Unauthorized();
+            }
+
             Author author = await authorService.GetAuthorByIdAsync(id);
 
             if (author == null || author.IsDeleted == true)
@@ -83,6 +98,11 @@ namespace BookStore.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(AddAuthorFormModel model)
         {
+            if (!IsAdmin(User))
+            {
+                return Unauthorized();
+            }
+
             Author author = await authorService.GetAuthorByIdAsync(model.Id);
 
             await authorService.EditAuthor(model, author);
@@ -115,6 +135,11 @@ namespace BookStore.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
+            if (!IsAdmin(User))
+            {
+                return Unauthorized();
+            }
+
             Author author = await authorService.GetAuthorByIdAsync(id);
 
             if (author == null || author.IsDeleted == true)

@@ -53,7 +53,7 @@
                     <p>Written by: <b>@review.ReviewerName</b></p>
                     <p>Rating: <b>@review.StarRating/5</b></p>
                     @{
-                        if (review.ReviewerName == User.Identity.Name)
+                        if (review.ReviewerName == User.Identity.Name || User.IsInRole("Admin"))
                         {
                             <div class="form-inline align-self-center">
                                 <a class="btn btn-danger" asp-controller="Reviews" asp-action="Remove"
