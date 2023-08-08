@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +20,11 @@ namespace BookStore.Data.Models
 
         public ICollection<Review> Reviews { get; set; }
 
-        public ICollection<Author> FavouriteAuthors { get; set; } = new HashSet<Author>();
+        [ForeignKey(nameof(Cart))]
+        public int CartId { get; set; }
 
-        public ICollection<FavoriteUserBook> FavouriteBooks { get; set; } = new HashSet<FavoriteUserBook>();
+        public Cart Cart { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 }

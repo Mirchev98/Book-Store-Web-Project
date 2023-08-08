@@ -4,6 +4,7 @@ using BookStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    partial class BookStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230808155824_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +31,6 @@ namespace BookStore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CartId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -96,17 +95,16 @@ namespace BookStore.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("48757c4e-aca3-41dd-b3a6-792855ec770a"),
+                            Id = new Guid("f0fcc62b-6cfc-4615-8873-1b7c5be5187b"),
                             AccessFailedCount = 0,
-                            CartId = 0,
-                            ConcurrencyStamp = "4cd916bc-a8e2-4efe-b454-ea6c26ac6cfa",
+                            ConcurrencyStamp = "f48ca980-f7e5-42c0-945d-42d83388364c",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             IsAdmin = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@admin.com",
                             NormalizedUserName = "admin@admin.com",
-                            PasswordHash = "AJeYOH+nWIiy5oxkqkmnS3rrC4EWltJshmBP52oGJbbZz4V7R43VpO7OfOS359v8xw==",
+                            PasswordHash = "AOdNNxn8wUzTM5rSk0yMCtbvRxAmqvEf04VZp53SxJYShX6bga1Sg98lAYC5kfi4/A==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
@@ -189,9 +187,6 @@ namespace BookStore.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CartId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
@@ -219,8 +214,6 @@ namespace BookStore.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
-
-                    b.HasIndex("CartId");
 
                     b.HasIndex("CategoryId");
 
@@ -282,25 +275,6 @@ namespace BookStore.Migrations
                             Price = 50m,
                             Title = "The Fellowship of the Ring"
                         });
-                });
-
-            modelBuilder.Entity("BookStore.Data.Models.Cart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("BookStore.Data.Models.Category", b =>
@@ -568,10 +542,6 @@ namespace BookStore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookStore.Data.Models.Cart", null)
-                        .WithMany("Books")
-                        .HasForeignKey("CartId");
-
                     b.HasOne("BookStore.Data.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
@@ -581,17 +551,6 @@ namespace BookStore.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("BookStore.Data.Models.Cart", b =>
-                {
-                    b.HasOne("BookStore.Data.Models.ApplicationUser", "User")
-                        .WithOne("Cart")
-                        .HasForeignKey("BookStore.Data.Models.Cart", "UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BookStore.Data.Models.FavoriteAuthorUser", b =>
@@ -725,9 +684,6 @@ namespace BookStore.Migrations
                 {
                     b.Navigation("BoughtBooks");
 
-                    b.Navigation("Cart")
-                        .IsRequired();
-
                     b.Navigation("Reviews");
                 });
 
@@ -745,11 +701,6 @@ namespace BookStore.Migrations
                     b.Navigation("Reviews");
 
                     b.Navigation("UserBoughtBooks");
-                });
-
-            modelBuilder.Entity("BookStore.Data.Models.Cart", b =>
-                {
-                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }

@@ -31,6 +31,8 @@ namespace BookStore.Data
 
         public DbSet<UserBookBought> UsersBoughtBooks { get; set; }= null!;
 
+        public DbSet<Cart> Carts { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<FavoriteAuthorUser>()
@@ -41,6 +43,16 @@ namespace BookStore.Data
 
             builder.Entity<FavoriteUserBook>()
                 .HasKey(u => new {u.UserId, u.BookId });
+
+            builder.Entity<Cart>()
+                .HasOne(c => c.User)
+                .WithOne(c => c.Cart)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ApplicationUser>()
+                .HasOne(u => u.Cart)
+                .WithOne(u => u.User)
+                .OnDelete(DeleteBehavior.Restrict);
 
             EntitySeedDataConfiguration.Seed(builder);
 
