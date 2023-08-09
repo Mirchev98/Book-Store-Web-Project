@@ -20,25 +20,19 @@
                class="btn btn-success">Details</a>
 
 
-            @if (this.User.Identity?.IsAuthenticated ?? false)
+            @if (this.User.IsInRole("Admin"))
             {
                 <p></p>
                 <a asp-controller="Book" asp-action="Edit" asp-route-id="@Model.Id"
                    class="btn btn-warning">Edit</a>
                 <a asp-controller="Book" asp-action="Delete" asp-route-id="@Model.Id"
                    class="btn btn-danger" confirm="Are your sure?">Delete</a>
-                <form class="input-group-sm" asp-controller="Book"
-                      asp-action="AddToFavorite" asp-route-id="@Model.Id" method="post">
-                    <input class="btn btn-primary" type="submit" value="Add To Favorite" />
-                </form>
-
                 <p></p>
-
-                <form class="input-group-sm" asp-controller="Book"
-                      asp-action="Purchase" asp-route-id="@Model.Id" method="post">
-                    <input class="btn btn-primary" type="submit" value="Purchase" />
-                </form>
             }
+            <div class="form-inline">
+                <a asp-controller="Cart" asp-action="Purchase" asp-route-id="@Model.Id"
+                   class="btn btn-danger">Purchase</a>
+            </div>
         </div>
     </div>
 </div>

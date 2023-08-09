@@ -27,10 +27,8 @@
                        asp-route-id="@Model.Id" confirm="Are your sure?">Delete</a>
                     <a class="ml-2 btn btn-info" asp-controller="Author" asp-action="Details"
                        asp-route-id="@Model.AuthorId">View Author</a>
-                    <a class="ml-2 btn btn-success" asp-controller="Book" asp-action="Delete"
+                    <a class="ml-2 btn btn-success" asp-controller="Cart" asp-action="Purchase"
                        asp-route-id="@Model.Id">Buy Book</a>
-                    <a class="ml-2 btn btn-success" asp-controller="Book" asp-action="Delete"
-                       asp-route-id="@Model.Id">Add to favourite</a>
                 }
             </div>
             <p></p>
