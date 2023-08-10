@@ -11,7 +11,7 @@ namespace BookStore.Data
 {
     public class BookStoreDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
-        public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options)
+        public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options, bool v)
             : base(options)
         {
 
