@@ -59,5 +59,18 @@ namespace BookStore.Services.Tests
 
             Assert.That(book.Title, Is.EqualTo(wantedTitle));
         }
+
+        [Test]
+        public async Task GetBookForDetailsViewModel()
+        {
+            int bookId = 1;
+            string wantedTitle = "The Eye of the World";
+
+            BookDetailsViewModel model = new BookDetailsViewModel();
+
+            await bookService.GetBookAsync(model, bookId);
+
+            Assert.That(model.Title, Is.EqualTo(wantedTitle));
+        }
     }
 }
