@@ -2,7 +2,7 @@
 
 
 ## :pencil: Project Description
-The Book Store is an application, where the user will be able to browse and find a number of book, which can be purchased, as well as access a encyclopedia-like section with information and short biography about various authors. 
+The Book Store is an application, where the user will be able to browse and find a number of book, which can be purchased, as well as access a encyclopedia-like section with information and short biography about various authors. The application also seeds an admin user for test and introduction purposes with the following credentials: admin@admin.com, pass: 12345a.
 
 
 ## :floppy_disk: Architecure
