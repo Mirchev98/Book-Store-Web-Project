@@ -16,9 +16,6 @@ The Book Store is an application, where the user will be able to browse and find
 * [Bootstrap]
 * Upholded SOLID principles and MVC pattern
 
-## Images
---ToDo images of the various app pages--
-
 ## Author
 Mircho Mirchev
 <br />
