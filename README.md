@@ -2,7 +2,7 @@
 
 
 ## :pencil: Project Description
-The Book Store is an application, where the user will be able to browse and find a number of book, which can be purchased, as well as access a encyclopedia-like section with information and short biographu about various authors. The application will also feature a Forum section, where users can discuss various literature subjects.
+The Book Store is an application, where the user will be able to browse and find a number of book, which can be purchased, as well as access a encyclopedia-like section with information and short biography about various authors. 
 
 
 ## :floppy_disk: Database Diagram
